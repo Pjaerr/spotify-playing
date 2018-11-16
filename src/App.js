@@ -6,9 +6,12 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      song: 'a song',
-      artist: 'some artist',
-      imageUrl: 'https://placekitten.com/200/200',
+      song: 'Nothing!!',
+      artist: 'At this moment in time',
+      none: 'none',
+      onehundred: '100px',
+      imageUrl: '/MMT-Loading.gif',
+      explicit: '',
       access_token: ''
     }
   }
@@ -44,7 +47,7 @@ class App extends Component {
   }
   
   refreshSpotifyToken = async () => {
-    const token_url = 'https://cors-anywhere.herokuapp.com/https://accounts.spotify.com/api/token'
+    const token_url = 'https://xander-api.herokuapp.com/https://accounts.spotify.com/api/token'
     const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID
     const client_secret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
     const auth = 'Basic ' + new Buffer(client_id + ':' + client_secret).toString('base64')
@@ -72,7 +75,9 @@ class App extends Component {
 
   getSpotifyData = async (token) => {
     // Use access token to call now_playing endpoint
-    const url = 'https://api.spotify.com/v1/me/player/currently-playing'
+    const url = 'https://api.spotify.com/v1/me/player/currently-playing';
+    const explicit = "false";
+    this.setState({explicit});
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -82,22 +87,48 @@ class App extends Component {
       })
       try {
         const data = await response.json()
-        const [song, artist, imageUrl] = [data.item.name, data.item.artists[0].name, data.item.album.images[0].url]
-        this.setState({ song, artist, imageUrl })
+        const [song, artist, imageUrl, length, currentlength, explicit] = [data.item.name, data.item.artists[0].name, data.item.album.images[0].url, data.item.duration_ms, data.progress_ms, data.item.explicit ];
+        const songlength = (length / 60000).toFixed(2);
+        const currentposition = (currentlength / 60000).toFixed(2); 
+        const onehundred = '';
+        const none = '';       
+        const barstate = (currentposition/songlength)*100 + "%"
+        this.setState({ song, artist, imageUrl, barstate, onehundred, none, explicit})
       } catch(err3) {
         console.warn(`Error getting json from spotify response: ${err3}`)
       }
     } catch(err5) {
       console.warn(`Error fetching spotify data: ${err5}`)
     }
+
+    if (this.state.explicit === true) {
+      this.SkipExplicit(this.state.access_token)
+    }
+  }
+
+  SkipExplicit = async (token) => {
+    if (this.state.explicit === true) {
+      const url = 'https://api.spotify.com/v1/me/player/next'
+      try {
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      } catch(err4) {
+        console.warn(`Error Skiping Song: ${err4}`)
+      }
+      console.log("Song Skipped");
+    }
   }
 
   render () {
     return (
       <div className='App wrapper'>
-        <Spotify song={this.state.song} artist={this.state.artist} imageUrl={this.state.imageUrl} />
-        {this.state.access_token.length > 0 ? <a className='button' onClick={() => this.getSpotifyData(this.state.access_token)}>UPDATE</a> : null}
+        <Spotify song={this.state.song} artist={this.state.artist} imageUrl={this.state.imageUrl} barstate={this.state.barstate} none={this.state.none} onehundred={this.state.onehundred}/>
       </div>
+      //{this.state.access_token.length > 0 ? <a className='button' onClick={() => this.getSpotifyData(this.state.access_token)}>UPDATE</a> : null}
     )
   }
 }

@@ -10,7 +10,17 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
+    <style>
+      @font-face { 
+        font-family: MetaOffcPro-Book; src: url('%PUBLIC_URL%/fonts/MetaSerifOffcPro-BookItalic.ttf'); 
+      }
+    </style>
+    <style>
+      @font-face { 
+        font-family: MetaOffcPro-Bold; src: url('%PUBLIC_URL%/fonts/MetaOffcPro-Bold.ttf');
+      }
+    </style>
+      <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -19,9 +29,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>MMT Playing</title>
   </head>
-  <body>
+  <body style="background-image: url('%PUBLIC_URL%/MMT-background.png');">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
