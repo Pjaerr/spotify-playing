@@ -74,3 +74,30 @@
   height: 4px;
   background-color: white;
 }
+
+.options-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  flex-direction: column;
+
+  color: #ffffff;
+}
+
+.audio-features-container {
+  color: white;
+
+  font-size: 24px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.audio-features-value {
+  color: black;
+  font-weight: bold;
+
+  margin-left: 20px;
+}
