@@ -1,38 +1,49 @@
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+#root {
+  height: 100%;
+}
+
 .App {
-  text-align: center;
-}
-
-.spotify-holder {
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.spotify-player-wrapper {
-  display: grid;
-  align-self: flex-start;
-}
-
-.spotify-player-wrapper svg {
+.App svg {
+  position: absolute;
+  top: 0%;
+  left: 1%;
   width: 170px;
   margin: 20px 0 0 20px;
   fill: white;
 }
 
+.spotify-holder {
+  /* width: 400px; */
+  width: 50vw;
+}
+
 .track-info {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
   text-align: center;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  width: 400px;
+  width: 100%;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
 }
 
 .track-image-frame {
   background-color: white;
-  height: 250px;
-  width: 250px;
+  height: 50%;
+  width: 50%;
   overflow: hidden;
   box-shadow: 0 16px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px;
@@ -41,16 +52,15 @@
 }
 
 .track-info--image {
-  width: 250px;
+  width: 100%;
 }
 
 .track-info--artist {
   font-family: MetaOffcPro-Book;
-  font-size: 12px;
+  font-size: 1em;
   color: white;
   margin-bottom: 0;
   margin: 0 100px 0 100px;
-  width: 300px;
 }
 
 .track-info--title {
@@ -59,19 +69,20 @@
   color: white;
   margin-top: 0;
   overflow: visible;
+  font-size: 2em;
 }
 
 .bar {
   -ms-flex-positive: 1;
   flex-grow: 1;
-  width: 250px;
+  width: 50%;
   margin: 0 100px 0 100px;
-  height: 4px;
+  height: 5px;
   background-color: #ffffff78;
 }
 
 .progress {
-  height: 4px;
+  height: 5px;
   background-color: white;
 }
 
@@ -89,7 +100,7 @@
 .audio-features-container {
   color: white;
 
-  font-size: 24px;
+  font-size: 2em;
 
   display: flex;
   flex-direction: column;

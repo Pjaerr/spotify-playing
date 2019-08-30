@@ -1,4 +1,6 @@
 import React from "react";
+import MMTsvg from '../assets/MMTsvg'
+
 
 //Styles
 import "../Styles/App.css";
@@ -28,7 +30,7 @@ class App extends React.Component {
       explicit: "",
       access_token: "",
       skipSongsLongerThanSixMins: true,
-      bannedArtists: ["Michael Jackson", "The Jacksons"],
+      bannedArtists: "Michael Jackson,The Jacksons",
       audioFeatures: {}
     };
   }
@@ -72,7 +74,7 @@ class App extends React.Component {
     if (this.state.skipSongsLongerThanSixMins && duration_ms > MAX_SONG_LENGTH)
       return true;
     if (
-      artists.filter(artist => this.state.bannedArtists.includes(artist.name))
+      artists.filter(artist => this.state.bannedArtists.split(',').includes(artist.name))
         .length > 0
     )
       return true;
@@ -122,6 +124,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App wrapper">
+        <MMTsvg />
         <Spotify
           song={this.state.song}
           artist={this.state.artist}
@@ -131,7 +134,7 @@ class App extends React.Component {
           onehundred={this.state.onehundred}
         />
         <div className="options-container">
-          <div className="options-checkbox">
+          <div className="options-max-length-checkbox">
             <label htmlFor="options-max-length-checkbox">
               Restrict songs to 6 mins or under?
             </label>
@@ -143,15 +146,9 @@ class App extends React.Component {
                 this.setState({ skipSongsLongerThanSixMins: e.target.checked });
               }}
             />
+            </div>
           </div>
         </div>
-        <TrackAudioFeatures
-          danceability={this.state.audioFeatures.danceability}
-          loudness={this.state.audioFeatures.loudness}
-          valence={this.state.audioFeatures.valence}
-          tempo={this.state.audioFeatures.tempo}
-        />
-      </div>
     );
   }
 }

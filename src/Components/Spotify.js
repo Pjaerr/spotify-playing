@@ -1,10 +1,8 @@
 import React from 'react'
-import MMTsvg from '../assets/MMTsvg'
 
 const Spotify = props => {
   return (
     <div className="spotify-holder">
-      <div className="spotify-player-wrapper"><MMTsvg /></div>
       <section className="track-info">
         <div className="track-image-frame" style={{background: props.none, boxShadow: props.none, width: props.onehundred, height: props.onehundred}}>
           <img className="track-info--image" src={props.imageUrl} style={{width: props.onehundred}} alt='album artwork'/>
